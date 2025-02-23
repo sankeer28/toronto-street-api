@@ -40,7 +40,14 @@ const chunks = [
   require('./streets_28.json'),
   require('./streets_29.json'),
   require('./streets_30.json'),
-  require('./streets_31.json')
+  require('./streets_31.json'),
+  require('./streets_32.json'),
+  require('./streets_33.json'),
+  require('./streets_34.json'),
+  require('./streets_35.json'),
+  require('./streets_36.json'),
+  require('./streets_37.json'),
+  require('./streets_38.json')
 ] as const;
 
 export const streets: Street[] = chunks.flat();

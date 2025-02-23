@@ -36,34 +36,28 @@ interface StreetData {
 async function downloadStreetData() {
   const query = `
     [out:json][timeout:900];
-    area["name"="Toronto"]->.toronto;
-    area["name"="Mississauga"]->.mississauga;
-    area["name"="Brampton"]->.brampton;
-    area["name"="Markham"]->.markham;
-    area["name"="Richmond Hill"]->.richmond;
-    area["name"="Vaughan"]->.vaughan;
-    area["name"="Pickering"]->.pickering;
-    area["name"="Ajax"]->.ajax;
-    area["name"="Whitby"]->.whitby;
-    area["name"="Oshawa"]->.oshawa;
+    // Define the exact GTA bounding box using provided coordinates
     (
-      way["highway"]["name"](area.toronto);
-      way["highway"]["name"](area.mississauga);
-      way["highway"]["name"](area.brampton);
-      way["highway"]["name"](area.markham);
-      way["highway"]["name"](area.richmond);
-      way["highway"]["name"](area.vaughan);
-      way["highway"]["name"](area.pickering);
-      way["highway"]["name"](area.ajax);
-      way["highway"]["name"](area.whitby);
-      way["highway"]["name"](area.oshawa);
+      // South-West point: 43.57455720071925,-79.56596680728272
+      // North-West point: 43.805423228641516,-79.68545466957553
+      // North-East point: 43.99894444958437,-79.03600299452471
+      // South-East point: 43.638906489923045,-78.93970983491215
+      
+      // Get ALL named ways within this bounding box
+      way["name"](43.57,-79.69,44.00,-78.93);
+      
+      // Explicitly include all highways and roads
+      way["highway"]["name"](43.57,-79.69,44.00,-78.93);
+      
+      // Get address points for verification
+      node["addr:street"](43.57,-79.69,44.00,-78.93);
     );
     out body;
     >;
     out skel qt;
   `;
 
-  console.log('Downloading GTA street data (this may take several minutes)...');
+  console.log('Downloading complete GTA street data...');
   
   const response = await fetch('https://overpass-api.de/api/interpreter', {
     method: 'POST',
@@ -71,7 +65,6 @@ async function downloadStreetData() {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    // Add longer timeout for larger dataset
     timeout: 900000
   });
 
@@ -90,16 +83,34 @@ async function downloadStreetData() {
     }
   });
 
-  // Then process ways into streets
+  // Update street type priority with proper typing
+  type StreetType = 'residential' | 'tertiary' | 'secondary' | 'unclassified' | 
+                    'primary' | 'trunk' | 'motorway' | 'unknown';
+
+  const streetTypePriority: Record<StreetType, number> = {
+    'residential': 1,
+    'tertiary': 2,
+    'secondary': 3,
+    'unclassified': 4,
+    'primary': 5,
+    'trunk': 6,
+    'motorway': 7,
+    'unknown': 8
+  };
+
+  // Then process ways into streets with priority
   data.elements.forEach((element) => {
     if (element.type === 'way' && element.tags?.name) {
-      const name = element.tags.name;
+      const name = element.tags.name.trim();
       const type = element.tags.highway || 'unknown';
+      
+      // Don't modify street names, keep them exactly as they are
       const coordinates = element.nodes
         .map((nodeId: number) => nodes.get(nodeId))
         .filter((node): node is Coordinate => node !== undefined);
 
-      const key = `${name}|${type}`; // Use combination of name and type as key
+      const key = `${name}|${type}`;
+      
       if (!streets.has(key)) {
         streets.set(key, { name, type, coordinates: [] });
       }
