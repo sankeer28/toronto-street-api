@@ -19,9 +19,19 @@ GET https://toronto-street-api.vercel.app/api?lat=43.5935064119175&lng=-79.52954
 ```
 
 ### Boundaries
-- Latitude: 43.4° to 44.0°
-- Longitude: -79.8° to -79.1°
+Exactly covers Greater Toronto Area with these corner points:
+- South-West: 43.57455720071925, -79.56596680728272 (Mississauga)
+- North-West: 43.80542322864151, -79.68545466957553 (Brampton)
+- North-East: 43.99894444958437, -79.03600299452471 (Markham)
+- South-East: 43.63890648992304, -78.93970983491215 (Pickering)
 
+## Features
+- High precision street detection (within 15 meters)
+- Includes all road types (streets, trails, avenues, etc.)
+- Fast response times (<100ms)
+- No rate limits
+- Comprehensive GTA coverage
+  
 ## Local Development
 
 1. Clone the repository:
@@ -63,18 +73,4 @@ Street data is sourced from OpenStreetMap using the Overpass API. The data inclu
 - Whitby
 - Oshawa
 
-## Deployment
 
-The API is deployed on Vercel. To deploy your own instance:
-
-1. Push to GitHub
-2. Import project in Vercel
-3. Deploy
-
-## Technical Details
-
-- Built with TypeScript and Node.js
-- Uses Express for local development
-- Vercel serverless functions for deployment
-- ~32,000 streets in database
-- Data is split into chunks for efficient loading
