@@ -10,19 +10,12 @@ GET /api?lat={latitude}&lng={longitude}
 
 ### Example Request
 ```http
-GET https://toronto-street-api.vercel.app/api?lat=43.65487346557306&lng=-79.45351336619862
+GET https://toronto-street-api.vercel.app/api?lat=43.5935064119175&lng=-79.52954035201256
 ```
 
 ### Example Response
 ```json
-{
-  "street": "Indian Trail",
-  "coordinates": {
-    "latitude": 43.65487346557306,
-    "longitude": -79.45351336619862
-  },
-  "totalStreets": 31871
-}
+{"street":"Thirty First Street","coordinates":{"latitude":43.5935064119175,"longitude":-79.52954035201256},"totalStreets":31871}
 ```
 
 ### Boundaries
@@ -33,8 +26,7 @@ GET https://toronto-street-api.vercel.app/api?lat=43.65487346557306&lng=-79.4535
 
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
-cd coordinate_to_street
+git clone https://github.com/sankeer28/toronto-street-api.git
 ```
 
 2. Install dependencies:
