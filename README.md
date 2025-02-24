@@ -1,6 +1,7 @@
 # Toronto Street API
 
-Simple API that returns the nearest street name for any given coordinate in the Greater Toronto Area (GTA).
+Simple API that returns the nearest street name for any given coordinate in the Greater Toronto Area (GTA). 
+Made this to replace [Nominatim API](https://nominatim.org) as it has rate limits.
 
 ## API Usage
 
@@ -25,6 +26,7 @@ Exactly covers Greater Toronto Area with these corner points:
 - North-East: 43.99894444958437, -79.03600299452471 (Markham)
 - South-East: 43.63890648992304, -78.93970983491215 (Pickering)
 ![image](https://github.com/user-attachments/assets/b9f64101-4c2f-4392-8f4b-fb8462e86866)
+![image](https://github.com/user-attachments/assets/dff55d17-8083-4cba-aebe-3e23174de850)
 
 ## Features
 - High precision street detection (within 15 meters)
