@@ -24,6 +24,7 @@ Exactly covers Greater Toronto Area with these corner points:
 - North-West: 43.80542322864151, -79.68545466957553 (Brampton)
 - North-East: 43.99894444958437, -79.03600299452471 (Markham)
 - South-East: 43.63890648992304, -78.93970983491215 (Pickering)
+![image](https://github.com/user-attachments/assets/b9f64101-4c2f-4392-8f4b-fb8462e86866)
 
 ## Features
 - High precision street detection (within 15 meters)
