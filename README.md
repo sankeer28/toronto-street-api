@@ -1,6 +1,6 @@
 # Toronto Street API
 
-Simple API that returns the nearest street name for any given coordinate in the Greater Toronto Area (GTA). 
+Simple API that returns the nearest street name for any given coordinate in the Greater Toronto Area (GTA). Has data of 38256 streets.
 Made this to replace [Nominatim API](https://nominatim.org) as it has rate limits.
 
 ## API Usage
